@@ -1,0 +1,86 @@
+import random
+def question(words):
+    return random.choice(words)
+
+def jumble(word):
+    return ''.join(random.sample(word,len(word)))
+
+def thank(p1,p1_score,p2,p2_score):
+    def congrats(player,score):
+        print(f'Congratulations {player},you won with a score of {score}')
+
+    if p1_score>p2_score:
+        congrats(p1,p1_score)
+    elif p1_score==p2_score:
+        print("It's a tie!")
+    else:
+        congrats(p2,p2_score)
+    print('Thanks for playing')
+
+def cont():
+    x=input('Would you like to continue?(Y/N): ')
+    return x.lower()[0]=='y'
+    
+
+print('Welcome to Guess The Word game')
+
+
+player_1_name=input('Player 1,please enter your name: ')
+player_2_name=input('Player 2,please enter your name: ')
+player_1_score=0
+player_2_score=0
+turn=0
+
+words=['apple','computer','programming','mountain','kernel'] #PROVIDE A LIST
+
+while True:
+    
+
+#player1
+    if turn%2==0:
+        print(player_1_name,'your turn')
+        picked_word = question(words)
+        question=jumble(picked_word)
+        print('Here you go :',question)
+        user_ans=input('Enter your answer: ')
+        if user_ans==picked_word:
+            player_1_score+=1
+            print(f'Correct guess!!! {player_1_name},Your current score is: ',player_1_score)
+
+        else:
+            print('Sorry,the right answer was: ',picked_word)
+
+        x=cont()
+        if x:
+            continue
+
+        else:
+            thank(player_1_name,player_1_score,player_2_name,player_2_score)
+            break
+
+    turn+=1
+
+
+
+    #player2
+    if turn%2==0:
+        picked_word = question(words)
+        question=jumble(picked_word)
+        print('Here you go :',question)
+        user_ans=input('Enter your answer: ')
+        if user_ans==picked_word:
+            player_2_score+=1
+            print(f'Correct guess!!! {player_2_name},Your current score is: ',player_2_score)
+
+        else:
+            print('Sorry,the right answer was: ',picked_word)
+
+        x=cont()
+        if x:
+            continue
+
+        else:
+            thank(player_1_name,player_1_score,player_2_name,player_2_score)
+            break
+
+    turn+=1
